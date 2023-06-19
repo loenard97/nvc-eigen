@@ -3,17 +3,19 @@ import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider, Button
 
 from nvceigen.vector import Vector3D
-from nvceigen.eigen import resonances, odmr_fit_func
+from nvceigen.solver import HSolver, Test
+from nvceigen.util import odmr_fit_func
 
 
 def calculate_resonances(x, Bx, By, Bz):
     """
     Calculate resonances from B-Field
     """
+    solver = HSolver()
     c = 1
     a1, a2, a3, a4, a5, a6, a7, a8 = [0.1] * 8
     w1, w2, w3, w4, w5, w6, w7, w8 = [10] * 8
-    f1, f2, f3, f4, f5, f6, f7, f8 = np.sort(resonances(Vector3D(Bx, By, Bz)))
+    f1, f2, f3, f4, f5, f6, f7, f8 = solver.solve_resonances(Vector3D(Bx, By, Bz))
     return odmr_fit_func(x, c, a1, w1, f1, a2, w2, f2, a3, w3, f3, a4, w4, f4, a5, w5, f5, a6, w6, f6, a7, w7, f7, a8, w8, f8)
 
 
@@ -116,7 +118,3 @@ def plot():
     slider_bz.on_changed(update)
 
     plt.show()
-
-
-if __name__ == '__main__':
-    plot()
