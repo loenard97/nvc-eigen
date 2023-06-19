@@ -1,8 +1,8 @@
 import scipy
 import numpy as np
 
-from vector import Vector3D
-from util import deg_to_rad
+from nvceigen.vector import Vector3D
+from nvceigen.util import deg_to_rad
 
 
 def odmr_fit_func(x, c, a1, w1, f1, a2, w2, f2, a3, w3, f3, a4, w4, f4, a5, w5, f5, a6, w6, f6, a7, w7, f7, a8, w8, f8):
